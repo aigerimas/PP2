@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C6C07C1E-305C-420E-BA03-8A13CC8C536F}</ProjectGuid>
+    <ProjectGuid>{79B33351-8C2F-405A-ADC5-8A5186F3AF1F}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>prime_numbers</RootNamespace>
-    <AssemblyName>prime numbers</AssemblyName>
+    <RootNamespace>Prime_numbers</RootNamespace>
+    <AssemblyName>Prime numbers</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
