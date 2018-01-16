@@ -8,7 +8,7 @@ namespace Stack
 {
     class Program
     {
-        static public void TreeFiles(string root)
+        static public void TreeFiles(string root, int path = 0)
         {
             Stack<string> dirs = new Stack<string>();
             dirs.Push(root);
@@ -17,6 +17,8 @@ namespace Stack
                 string current = dirs.Pop();
                 string[] subDirs = Directory.GetDirectories(current);
                 string[] files = Directory.GetFiles(current);
+                DirectoryInfo dir = new DirectoryInfo(current);
+                Console.WriteLine(dir.Name);
                 foreach (string file in files)
                 {
                     FileInfo fi = new FileInfo(file);
@@ -26,12 +28,13 @@ namespace Stack
                 {
                     dirs.Push(str);
                 }
+                path += 5;
             }
         }
 
         static void Main(string[] args)
         {
-            string root = @"C:\Users\admin\Desktop\KBTU";
+            string root = @"C:\Users\admin\Desktop\root";
             TreeFiles(root);
             Console.ReadKey();
         }
