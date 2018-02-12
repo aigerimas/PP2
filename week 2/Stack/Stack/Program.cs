@@ -17,8 +17,7 @@ namespace Stack
                 string current = dirs.Pop();
                 string[] subDirs = Directory.GetDirectories(current);
                 string[] files = Directory.GetFiles(current);
-                DirectoryInfo dir = new DirectoryInfo(current);
-                Console.WriteLine(dir.Name);
+               
                 foreach (string file in files)
                 {
                     FileInfo fi = new FileInfo(file);
