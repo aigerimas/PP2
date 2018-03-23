@@ -22,16 +22,20 @@ namespace WindowsFormsApp1
         {
             if (calc.mode_simple)
             {
+
                 if (calc.isZeroOnDisplay)
                 {
                     calc.clear = true;
                     calc.isZeroOnDisplay = false;
                 }
+                if (display_sim.Text == "0,")
+                    calc.clear = false;
                 if (calc.clear)
                 {
                     display_sim.Text = "";
                     calc.clear = false;
                 }
+
 
                 Button btn = sender as Button;
                 this.display_sim.Text += btn.Text;
@@ -63,6 +67,8 @@ namespace WindowsFormsApp1
                 calc.isFirstNumberEntered = true;
                 calc.operation = btn.Text;
                 calc.clear = true;
+                calc.isFloat = true;
+                calc.isResultEntered = false;
             }
             else if(calc.mode_engin)
             {
@@ -71,16 +77,27 @@ namespace WindowsFormsApp1
                 calc.isFirstNumberEntered = true;
                 calc.operation = btn.Text;
                 calc.clear = true;
+                calc.isFloat = true;
+                calc.isResultEntered = false;
             }
         }
         private void result_Click(object sender, EventArgs e)
         {
             if (calc.mode_simple)
             {
-                calc.secondNumber = double.Parse(display_sim.Text);
-                calc.calculate();
-                display_sim.Text = calc.result.ToString();
-                calc.isSecondNumberEntered = true;
+                if (calc.isResultEntered)
+                {
+                    calc.result += calc.secondNumber;
+                    display_sim.Text = calc.result.ToString();
+                }
+                else
+                {
+                    calc.isResultEntered = true;
+                    calc.secondNumber = double.Parse(display_sim.Text);
+                    calc.calculate();
+                    display_sim.Text = calc.result.ToString();
+                    calc.isSecondNumberEntered = true;
+                }
             }
             else if(calc.mode_engin)
             {
@@ -143,6 +160,8 @@ namespace WindowsFormsApp1
                 calc.result = 0;
                 calc.operation = "";
                 calc.isZeroOnDisplay = true;
+                calc.isFloat = true;
+                calc.isResultEntered = false;
             }
             else if (calc.mode_engin)
             {
@@ -152,6 +171,8 @@ namespace WindowsFormsApp1
                 calc.result = 0;
                 calc.operation = "";
                 calc.isZeroOnDisplay = true;
+                calc.isFloat = true;
+                calc.isResultEntered = false;
             }
         }
         private void plusminus_Click(object sender, EventArgs e)
@@ -193,22 +214,45 @@ namespace WindowsFormsApp1
             if (calc.mode_simple)
             {
                 display_sim.Text = display_sim.Text.Substring(0, display_sim.Text.Length - 1);
+                if(display_sim.Text.Length == 1 && display_sim.Text[0] == '-')
+                {
+                    display_sim.Text = display_sim.Text.Substring(1, display_sim.Text.Length - 1);
+                }
                 if (display_sim.Text == "")
                     display_sim.Text = "0";
+                calc.isZeroOnDisplay = true;
+
             }
             else if (calc.mode_engin)
             {
                 display_engin.Text = display_engin.Text.Substring(0, display_engin.Text.Length - 1);
+                if(display_engin.Text.Length == 1 && display_engin.Text[0] == '-')
+                {
+                    display_engin.Text = display_engin.Text.Substring(1, display_engin.Text.Length - 1);
+                }
                 if (display_engin.Text == "")
                     display_engin.Text = "0";
+                calc.isZeroOnDisplay = true;
             }
         }
         private void float_Click(object sender, EventArgs e)
         {
             if (calc.mode_simple)
-                display_sim.Text += ",";
+            {
+                if (calc.isFloat)
+                {                    
+                    display_sim.Text += ",";
+                    calc.isFloat = false;
+                }
+            }
             else if (calc.mode_engin)
-                display_engin.Text += ",";
+            {
+                if (calc.isFloat)
+                {
+                    display_engin.Text += ",";
+                    calc.isFloat = false;
+                }
+            }
         }
         private void menu_Click(object sender, EventArgs e)
         {
@@ -231,6 +275,7 @@ namespace WindowsFormsApp1
                     calc.firstNumber = 0;
                     display_sim.Text = calc.firstNumber.ToString();
                     calc.clear = true;
+
                 }
                 else
                 {
@@ -238,6 +283,8 @@ namespace WindowsFormsApp1
                     display_sim.Text = calc.secondNumber.ToString();
                     calc.clear = true;
                 }
+                calc.isFloat = true;
+                calc.isResultEntered = false;
             }
             else if(calc.mode_engin)
             {
@@ -253,7 +300,7 @@ namespace WindowsFormsApp1
                     display_engin.Text = calc.secondNumber.ToString();
                     calc.clear = true;
                 }
-
+                calc.isFloat = true;
             }
         }
         private void buttonMC_Click(object sender, EventArgs e) // Memory Clear
@@ -380,6 +427,7 @@ namespace WindowsFormsApp1
         private void simple_Click(object sender, EventArgs e)
         {
             calc.mode_simple = true;
+            calc.isFloat = true;
             calc.mode_engin = false;
             calc.isZeroOnDisplay = true;
             calc.stSaved = new Stack<double>();
@@ -408,6 +456,7 @@ namespace WindowsFormsApp1
         {
             calc.mode_simple = true;
             calc.mode_engin = false;
+            calc.isFloat = true;
             calc.isZeroOnDisplay = true;
             calc.stSaved = new Stack<double>();
             calc.clear = false;
@@ -436,15 +485,20 @@ namespace WindowsFormsApp1
         {
 
         }
-
+        private void xpow2_Click(object sender, EventArgs e)
+        {
+            display_engin.Text = (Math.Pow(double.Parse(display_engin.Text), 2)).ToString();
+        }
         private void button_engin_sin_Click(object sender, EventArgs e)
         {
-            display_engin.Text = Math.Sin(double.Parse(display_engin.Text)).ToString();
+            double d = (double.Parse(display_engin.Text) * 180) / Math.PI;
+            display_engin.Text = Math.Sin(d).ToString();
         }
 
         private void button_engin_cos_Click(object sender, EventArgs e)
         {
-            display_engin.Text = Math.Cos(double.Parse(display_engin.Text)).ToString();
+            double d = double.Parse(display_engin.Text) * 180 / Math.PI;
+            display_engin.Text = Math.Cos(d).ToString();
         }
 
         private void button_engin_tan_Click(object sender, EventArgs e)

@@ -436,6 +436,7 @@ namespace WindowsFormsApp1
             this.button_engin_xpow2.TabIndex = 68;
             this.button_engin_xpow2.Text = "x^2";
             this.button_engin_xpow2.UseVisualStyleBackColor = false;
+            this.button_engin_xpow2.Click += new System.EventHandler(this.xpow2_Click);
             // 
             // button_engin_Mminus
             // 
@@ -489,6 +490,7 @@ namespace WindowsFormsApp1
             this.button_engin_xpowy.TabIndex = 70;
             this.button_engin_xpowy.Text = "x^y";
             this.button_engin_xpowy.UseVisualStyleBackColor = false;
+            this.button_engin_xpowy.Click += new System.EventHandler(this.operation_Click);
             // 
             // button_engin_M
             // 
@@ -1367,9 +1369,9 @@ namespace WindowsFormsApp1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(334, 438);
-            this.Controls.Add(this.panel_engin);
             this.Controls.Add(this.panel_menu);
             this.Controls.Add(this.panel_simple);
+            this.Controls.Add(this.panel_engin);
             this.Name = "Form1";
             this.Text = "Калькулятор";
             this.Load += new System.EventHandler(this.Form1_Load);

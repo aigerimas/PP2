@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
     class Calc
     {
+        public bool isResultEntered;
+        public bool isFloat;
         public bool mode_simple;
         public bool mode_engin;
         public Stack<double> stSaved;
@@ -21,11 +24,13 @@ namespace WindowsFormsApp1
         public string operation = "";
         public Calc()
         {
+            isFloat = true;
             mode_simple = true;
             mode_engin = false;
             isZeroOnDisplay = true;
             stSaved = new Stack<double>();
             clear = false;
+            isResultEntered = false;
         }
         public void calculate()
         {
@@ -41,7 +46,15 @@ namespace WindowsFormsApp1
                     result = firstNumber * secondNumber;
                     break;
                 case "÷":
-                    result = firstNumber / secondNumber;
+                    if (secondNumber == 0)
+                    {
+                        result = 0;
+                        MessageBox.Show("NO SOLUTION");
+                    }
+                    else
+                        result = firstNumber / secondNumber; 
+                    
+                    
                     break;
                 case "x²":
                     result = firstNumber * firstNumber;
@@ -67,6 +80,10 @@ namespace WindowsFormsApp1
                 case "Mod":
                     result = firstNumber % secondNumber;
                     break;
+                case "x^y":
+                    result = Math.Pow(firstNumber, secondNumber);
+                    break;
+                
             }
         }
     }
